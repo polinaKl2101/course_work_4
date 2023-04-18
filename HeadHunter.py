@@ -8,6 +8,9 @@ from operator import itemgetter, attrgetter
 
 class HeadHunterAPI(Base_class):
 
+    def __init__(self):
+        self.__vacancies_list = []
+
     def get_request(self, search_word, page):
         """
         Метод для получения информации о вакансиях с сайта.
@@ -21,7 +24,7 @@ class HeadHunterAPI(Base_class):
         }
         return requests.get("https://api.hh.ru/vacancies?only_with_salary=true", params=params).json()['items']
 
-    def get_vacancies(self, search_word, page=2):
+    def get_vacancies(self, search_word, page=10):
         """
         Метод для передачи данных в метод 'get_request'
         В аргументы принимаются ключевое слово и количество страниц.
@@ -29,15 +32,18 @@ class HeadHunterAPI(Base_class):
         Возвращает информацию о количестве вакансий.
         """
         pages = 0
-        response = []
 
         for i in range(page):
             print(f"Парсинг страницы {i + 1}", end=": ")
             values = self.get_request(search_word, i)
             print(f"Найдено {len(values)} вакансий.")
-            response.extend(values)
+            self.__vacancies_list.extend(values)
 
-        return response
+    @property
+    def get_vacancies_list(self):
+        """Метод для вывода собранных данных"""
+
+        return self.__vacancies_list
 
 
 class Vacancy:
@@ -58,7 +64,6 @@ class Vacancy:
     def get_vacancy(self):
         """
         Метод для получения данных из JSON файла.
-        Возвращает экземпляры для класса Vacancy.
         """
 
         with open(self.__filename, encoding='utf-8') as file:
@@ -138,7 +143,7 @@ class Vacancy:
                                      "Средняя заработная плата": average_salary,
                                      "Ссылка на вакансию": {row['alternate_url']}})
         sorted_data = sorted(result, key=itemgetter("Средняя заработная плата"), reverse=True)
-        pprint.pprint(sorted_data[0:], width=110)
+        pprint.pprint(sorted_data[:100], width=110)
 
     def max_to_min_salary(self):
         """
