@@ -87,7 +87,7 @@ class Vacancy:
                           f"Работодатель: {row['employer']['name']}\n"
                           f"Ссылка на вакансию: {row['alternate_url']}.")
 
-        return result
+        return '\n'.join(result)
 
     def show_vacancies_full_info(self):
 
@@ -109,7 +109,7 @@ class Vacancy:
                           f"ЗП: {salary_min} - {salary_max} {row['salary']['currency']}\n"
                           f"Ссылка на вакансию: {row['alternate_url']}.")
 
-        return result
+        return '\n'.join(result)
 
     def min_to_max_salary(self):
         """

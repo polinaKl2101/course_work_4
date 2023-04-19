@@ -87,10 +87,10 @@ class Vacancy_SJ:
             salary_max = 'Не указана' if row['payment_to'] == 0 else row['payment_to']
 
             result_info.append(f"\nНаименование вакансии: {row['profession']}\n"
-                          f"ЗП: {salary_min} - {salary_max} {row['currency']}\n"
-                          f"Ссылка на вакансию: {row['link']}.")
+                               f"ЗП: {salary_min} - {salary_max} {row['currency']}\n"
+                               f"Ссылка на вакансию: {row['link']}.")
 
-        return result_info
+        return '\n'.join(result_info)
 
     def show_vacancies_full_info(self):
 
@@ -104,13 +104,13 @@ class Vacancy_SJ:
             if salary_min is None and salary_max is None:
                 salary_min = "Не указана"
 
-            result_info.append(f"\nНаименование вакансии: {row['profession']}\n"
+            result_info.append(f"\n\nНаименование вакансии: {row['profession']}\n"
                                f"Город: {row.get('town')['title']}\n"
                                f"ЗП: {salary_min} - {salary_max} {row['currency']}\n"
                                f"Требования: {row.get('candidat')}"
                                f"Ссылка на вакансию: {row['link']}.")
 
-        return result_info
+        return '\n'.join(result_info)
 
     def min_to_max_salary(self):
         """
@@ -131,7 +131,7 @@ class Vacancy_SJ:
         sorted_data = sorted(result_info, key=itemgetter("Средняя заработная плата"), reverse=True)
         pprint.pprint(sorted_data[:100], width=110)
 
-    def max_to_main_salary(self):
+    def max_to_min_salary(self):
         """
         Метод: показывает вакансии по убыванию ЗП.
         """

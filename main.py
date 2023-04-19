@@ -6,8 +6,8 @@ if __name__ == '__main__':
 
     print("Программа для парсинга вакансий")
     platforms = input("Выберите платформу для поиска:\n"
-                      "1. Head Hunter\n"
-                      "2. Super Job\n"
+                      "1. Super Job\n"
+                      "2. Head Hunter\n"
                       "Введите номер: ").strip()
 
     while platforms not in ('1', '2'):

@@ -45,8 +45,7 @@ def user_interaction(api_instance, api_interface, city=None):
                 api_interface.min_to_max_salary()
             elif user_answer == "4":
                 api_interface.max_to_min_salary()
-            elif user_answer == "4":
-                api_interface.max_to_min_salary()
+
             user_answer = input('\nВведите номер: ').title().strip()
         print(f'Данные сохранены в файл {filename.title()}.json')
         exit(0)
